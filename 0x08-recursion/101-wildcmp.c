@@ -2,12 +2,23 @@
 #include <stdio.h>
 
 /**
- * main - check the code
- *
- * Return: Always 0.
+ * wildcmp - compares two strings and returns 1 if the strings can be
+ * considered identical, otherwise return 0
+ * @s1: input string1
+ * @s2: input string2
+ * Return: 1 if true, 0 if false
  */
-int main(void)
+int wildcmp(char *s1, char *s2)
 {
-    int r;
-
-    y
+	if (*s1 == '\0')
+	{
+		if (*s2 != '\0' && *s2 == '*')
+			return (wildcmp(s1, s2 + 1));
+		return (*s2 == '\0');
+	}
+	if (*s2 == '*')
+		return (wildcmp(s1 + 1, s2) || wildcmp(s1, s2 + 1));
+	else if (*s1 == *s2)
+		return (wildcmp(s1 + 1, s2 + 1));
+	return (0);
+}
